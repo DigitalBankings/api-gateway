@@ -1,0 +1,121 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: api-gateway
+  banner:
+    location: classpath:banner.txt
+  cloud:
+    gateway:
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 200  # max 200 req/sec per IP globally
+            redis-rate-limiter.burstCapacity: 400
+            key-resolver: "#{@userKeyResolver}"
+
+      routes:
+        # ------------------------
+        # /authorize → POST only, high TPS
+        # ------------------------
+        - id: oauth2-authorize
+          uri: http://localhost:8000
+          predicates:
+            - Path=/api/system/oauth2/authorize
+            - Method=POST
+          filters:
+            - StripPrefix=0
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 50
+                redis-rate-limiter.burstCapacity: 100
+                key-resolver: "#{@userKeyResolver}"
+
+        # ------------------------
+        # /authn → POST only, low TPS
+        # ------------------------
+        - id: oauth2-authn
+          uri: http://localhost:8000
+          predicates:
+            - Path=/api/system/oauth2/authn
+            - Method=POST
+          filters:
+            - StripPrefix=0
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 10
+                key-resolver: "#{@userKeyResolver}"
+
+        # ------------------------
+        # /token → POST only, medium TPS
+        # ------------------------
+        - id: oauth2-token
+          uri: http://localhost:8000
+          predicates:
+            - Path=/api/system/oauth2/token
+            - Method=POST
+          filters:
+            - StripPrefix=0
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 20
+                redis-rate-limiter.burstCapacity: 50
+                key-resolver: "#{@userKeyResolver}"
+
+        # ------------------------
+        # /callback → GET only, medium TPS
+        # ------------------------
+        - id: oauth2-callback
+          uri: http://localhost:8000
+          predicates:
+            - Path=/api/system/oauth2/callback
+            - Method=GET
+          filters:
+            - StripPrefix=0
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                key-resolver: "#{@userKeyResolver}"
+
+        # ------------------------
+        # Fallback route → reject all other requests
+        # ------------------------
+        - id: fallback
+          uri: http://localhost:8000
+          predicates:
+            - Path=/**
+          filters:
+            - SetStatus=404
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      username: default
+      password: mysecret123
+      lettuce:
+        ssl:
+          enabled: false
+        pool:
+          max-active: 50
+          max-idle: 20
+          min-idle: 5
+          max-wait: 100ms
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

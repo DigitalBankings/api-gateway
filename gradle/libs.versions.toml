@@ -1,0 +1,7 @@
+[versions]
+springBoot = "3.4.4"
+springDependency = "1.1.7"
+springCloudVersion = "2024.0.0"
+
+
+
