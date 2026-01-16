@@ -4,13 +4,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import reactor.core.publisher.Mono;
 
+
 @Configuration
 public class GatewayConfig {
 
-    // Use real client IP for rate limiting
+    // This resolves the key for rate limiting (could be client ID, IP, etc.)
     @Bean
-    public KeyResolver userKeyResolver() {
+    public KeyResolver clientKeyResolver() {
         return exchange -> {
+            // Example: resolve by client IP
             String ip = exchange.getRequest()
                     .getHeaders()
                     .getFirst("X-Forwarded-For"); // if behind proxy

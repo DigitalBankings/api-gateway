@@ -4,16 +4,9 @@ server:
 spring:
   application:
     name: api-gateway
-  banner:
-    location: classpath:banner.txt
+
   cloud:
     gateway:
-      default-filters:
-        - name: RequestRateLimiter
-          args:
-            redis-rate-limiter.replenishRate: 200  # max 200 req/sec per IP globally
-            redis-rate-limiter.burstCapacity: 400
-            key-resolver: "#{@userKeyResolver}"
 
       routes:
         # ------------------------
@@ -29,8 +22,8 @@ spring:
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 50
-                redis-rate-limiter.burstCapacity: 100
-                key-resolver: "#{@userKeyResolver}"
+                redis-rate-limiter.burstCapacity: 60
+                key-resolver: "#{@clientKeyResolver}"
 
         # ------------------------
         # /authn → POST only, low TPS
@@ -46,7 +39,7 @@ spring:
               args:
                 redis-rate-limiter.replenishRate: 5
                 redis-rate-limiter.burstCapacity: 10
-                key-resolver: "#{@userKeyResolver}"
+                key-resolver: "#{@clientKeyResolver}"
 
         # ------------------------
         # /token → POST only, medium TPS
@@ -62,7 +55,7 @@ spring:
               args:
                 redis-rate-limiter.replenishRate: 20
                 redis-rate-limiter.burstCapacity: 50
-                key-resolver: "#{@userKeyResolver}"
+                key-resolver: "#{@clientKeyResolver}"
 
         # ------------------------
         # /callback → GET only, medium TPS
@@ -78,7 +71,7 @@ spring:
               args:
                 redis-rate-limiter.replenishRate: 10
                 redis-rate-limiter.burstCapacity: 20
-                key-resolver: "#{@userKeyResolver}"
+                key-resolver: "#{@clientKeyResolver}"
 
         # ------------------------
         # Fallback route → reject all other requests
@@ -104,6 +97,7 @@ spring:
           max-idle: 20
           min-idle: 5
           max-wait: 100ms
+
 springdoc:
   api-docs:
     path: /v3/api-docs
