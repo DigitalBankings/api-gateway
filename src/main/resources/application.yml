@@ -7,7 +7,23 @@ spring:
 
   cloud:
     gateway:
+      # ------------------------
+      # HTTP Client Timeouts (Netty)
+      # ------------------------
+      httpclient:
+        connect-timeout: 2000      # TCP connect timeout
+        response-timeout: 5s       # Hard response timeout per request
 
+      # ------------------------
+      # Default filters for all routes
+      # ------------------------
+      default-filters:
+        - name: RemoveRequestHeader
+          args:
+            name: Cookie
+        - name: RemoveRequestHeader
+          args:
+            name: Set-Cookie     # Hard response timeout per request
       routes:
         # ------------------------
         # /authorize → POST only, high TPS
@@ -19,11 +35,15 @@ spring:
             - Method=POST
           filters:
             - StripPrefix=0
+            - name: CircuitBreaker
+              args:
+                name: authServiceCB
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 50
                 redis-rate-limiter.burstCapacity: 60
                 key-resolver: "#{@clientKeyResolver}"
+
 
         # ------------------------
         # /authn → POST only, low TPS
@@ -35,6 +55,10 @@ spring:
             - Method=POST
           filters:
             - StripPrefix=0
+            - name: CircuitBreaker
+              args:
+                name: authServiceCB
+                fallbackUri: forward:/fallback/auth
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 5
@@ -73,16 +97,6 @@ spring:
                 redis-rate-limiter.burstCapacity: 20
                 key-resolver: "#{@clientKeyResolver}"
 
-        # ------------------------
-        # Fallback route → reject all other requests
-        # ------------------------
-        - id: fallback
-          uri: http://localhost:8000
-          predicates:
-            - Path=/**
-          filters:
-            - SetStatus=404
-
   data:
     redis:
       host: localhost
@@ -103,3 +117,5 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+
