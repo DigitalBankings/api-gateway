@@ -4,6 +4,30 @@ server:
 spring:
   application:
     name: api-gateway
+  datasource:
+    url: jdbc:mysql://localhost:3306/api_gateway
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      username: default
+      password: mysecret123
+      lettuce:
+        ssl:
+          enabled: false
+        pool:
+          max-active: 50
+          max-idle: 20
+          min-idle: 5
+          max-wait: 100ms
+
+  #SPRING CACHE SWITCH
+  cache:
+    type: redis   # or caffeine
 
   cloud:
     gateway:
@@ -58,7 +82,6 @@ spring:
             - name: CircuitBreaker
               args:
                 name: authServiceCB
-                fallbackUri: forward:/fallback/auth
             - name: RequestRateLimiter
               args:
                 redis-rate-limiter.replenishRate: 5
@@ -96,26 +119,5 @@ spring:
                 redis-rate-limiter.replenishRate: 10
                 redis-rate-limiter.burstCapacity: 20
                 key-resolver: "#{@clientKeyResolver}"
-
-  data:
-    redis:
-      host: localhost
-      port: 6379
-      username: default
-      password: mysecret123
-      lettuce:
-        ssl:
-          enabled: false
-        pool:
-          max-active: 50
-          max-idle: 20
-          min-idle: 5
-          max-wait: 100ms
-
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
 
 

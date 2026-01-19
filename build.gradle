@@ -27,10 +27,20 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
     implementation 'io.projectreactor.netty:reactor-netty-http'
-//    implementation 'com.maxmind.geoip2:geoip2:2.15.0'
     implementation 'io.micrometer:micrometer-registry-prometheus'
-
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:'
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.mysql:mysql-connector-j:8.1.0'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // Cache
+    implementation "org.springframework.boot:spring-boot-starter-cache"
+    implementation "org.springframework.boot:spring-boot-starter-data-redis"
+    implementation "com.github.ben-manes.caffeine:caffeine"
+    implementation "com.hazelcast:hazelcast"
+    implementation "com.hazelcast:hazelcast-spring"
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
