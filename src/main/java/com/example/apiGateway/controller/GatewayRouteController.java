@@ -1,6 +1,5 @@
 package com.example.apiGateway.controller;
 
-
 import com.example.apiGateway.dto.gatewayRoute.CreateGatewayRouteRequest;
 import com.example.apiGateway.dto.gatewayRoute.GatewayRouteResponse;
 import com.example.apiGateway.services.GatewayRouteService;
@@ -17,5 +16,7 @@ public class GatewayRouteController {
     public GatewayRouteResponse createRoute(@RequestBody CreateGatewayRouteRequest request) {
         return gatewayRouteService.create(request);
     }
+
+
 
 }

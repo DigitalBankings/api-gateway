@@ -67,7 +67,7 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
         } else {
             // Unknown error
             status = HttpStatus.INTERNAL_SERVER_ERROR; // 500
-            message = "Unexpected gateway error";
+            message = "Unexpected gateway error" + ex.getMessage();
         }
 
         /* ---------- RESPONSE BODY ---------- */

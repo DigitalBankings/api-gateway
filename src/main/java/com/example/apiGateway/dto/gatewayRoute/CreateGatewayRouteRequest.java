@@ -24,7 +24,6 @@ public class CreateGatewayRouteRequest {
     private String targetUri;
     private boolean authRequired = true;
 
-
     public GatewayRoute toEntity() {
         GatewayRoute gatewayRoute = new GatewayRoute();
         gatewayRoute.setId(UUID.randomUUID().toString());
