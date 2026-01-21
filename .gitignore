@@ -38,4 +38,5 @@ out/
 
 
 #log folder
-./logs
+/logs/**
+/logs
