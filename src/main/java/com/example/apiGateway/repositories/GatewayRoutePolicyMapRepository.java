@@ -1,4 +1,3 @@
 package com.example.apiGateway.repositories;
 
-public interface GatewayRoutePolicyMapRepository {
-}
+public interface GatewayRoutePolicyMapRepository {}

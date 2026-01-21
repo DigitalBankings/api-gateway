@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '3.4.4'
     id 'io.spring.dependency-management' version '1.1.7'
+    id "com.diffplug.spotless" version "6.25.0"
     id 'java'
 }
 
@@ -12,9 +13,23 @@ java {
         languageVersion = JavaLanguageVersion.of(17)
     }
 }
-
+spotless {
+    java {
+        googleJavaFormat()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.github.com/OEURNSEYHA/seyha-logger")
+        credentials {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
 }
 
 ext {
@@ -28,11 +43,13 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j'
     implementation 'io.projectreactor.netty:reactor-netty-http'
     implementation 'io.micrometer:micrometer-registry-prometheus'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:'
-    annotationProcessor 'org.projectlombok:lombok'
-    compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.mysql:mysql-connector-j:8.1.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    runtimeOnly 'com.mysql:mysql-connector-j:8.1.0'
 
     // Cache
     implementation "org.springframework.boot:spring-boot-starter-cache"
@@ -40,9 +57,13 @@ dependencies {
     implementation "com.github.ben-manes.caffeine:caffeine"
     implementation "com.hazelcast:hazelcast"
     implementation "com.hazelcast:hazelcast-spring"
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    // Your library
+    implementation "com.github.OEURNSEYHA:seyha-logger:1.0.3"
+    compileOnly "jakarta.servlet:jakarta.servlet-api:6.0.0"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
 
 dependencyManagement {
     imports {

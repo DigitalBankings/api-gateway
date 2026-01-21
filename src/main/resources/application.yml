@@ -64,8 +64,8 @@ spring:
                 name: authServiceCB
             - name: RequestRateLimiter
               args:
-                redis-rate-limiter.replenishRate: 50
-                redis-rate-limiter.burstCapacity: 60
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 6
                 key-resolver: "#{@clientKeyResolver}"
 
 

@@ -13,18 +13,15 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class GatewayRouteServiceImpl implements GatewayRouteService {
 
-    private final GatewayRouteRepository repository;
-    private final GatewayRouteStore cacheStore;
+  private final GatewayRouteRepository repository;
+  private final GatewayRouteStore cacheStore;
 
-    // ---------- CREATE ----------
-    @Override
-    public GatewayRouteResponse create(CreateGatewayRouteRequest request) {
-        GatewayRoute saved = repository.save(request.toEntity());
-        GatewayRouteResponse response = GatewayRouteResponse.fromEntity(saved);
-        cacheStore.put(response);
-        return response;
-    }
-
-
-
+  // ---------- CREATE ----------
+  @Override
+  public GatewayRouteResponse create(CreateGatewayRouteRequest request) {
+    GatewayRoute saved = repository.save(request.toEntity());
+    GatewayRouteResponse response = GatewayRouteResponse.fromEntity(saved);
+    cacheStore.put(response);
+    return response;
+  }
 }

@@ -5,6 +5,5 @@ import com.example.apiGateway.dto.keyResolverPolicy.KeyResolverPolicyResponse;
 
 public interface KeyResolverPolicyService {
 
-    KeyResolverPolicyResponse create(CreateKeyResolverPolicyRequest request);
-
+  KeyResolverPolicyResponse create(CreateKeyResolverPolicyRequest request);
 }

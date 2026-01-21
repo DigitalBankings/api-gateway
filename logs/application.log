@@ -1,0 +1,90 @@
+2026-01-21 11:16:39.785 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.2.Final
+2026-01-21 11:16:39.832 [main] INFO  c.e.apiGateway.ApiGatewayApplication - Starting ApiGatewayApplication using Java 17.0.12 with PID 28032 (D:\Learning\api-gateway\build\classes\java\main started by seyha.oeun in D:\Learning\api-gateway)
+2026-01-21 11:16:39.833 [main] INFO  c.e.apiGateway.ApiGatewayApplication - No active profile set, falling back to 1 default profile: "default"
+2026-01-21 11:16:40.583 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-01-21 11:16:40.585 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-01-21 11:16:40.699 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 108 ms. Found 2 JPA repository interfaces.
+2026-01-21 11:16:40.707 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-01-21 11:16:40.708 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-01-21 11:16:40.722 [main] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.apiGateway.repositories.GatewayKeyResolverPolicyRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-01-21 11:16:40.722 [main] INFO  o.s.d.r.c.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.apiGateway.repositories.GatewayRouteRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-01-21 11:16:40.722 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2026-01-21 11:16:40.932 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=294264a4-d1e7-363d-9bc2-46ad9166f2f2
+2026-01-21 11:16:41.480 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-21 11:16:41.589 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2fcc5f49
+2026-01-21 11:16:41.591 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-21 11:16:41.619 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-01-21 11:16:41.675 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.11.Final
+2026-01-21 11:16:41.714 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-01-21 11:16:41.977 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-01-21 11:16:42.065 [main] WARN  org.hibernate.dialect.Dialect - HHH000511: The 5.5.5 version for [org.hibernate.dialect.MySQLDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 8.0.0. Check the community dialects project for available legacy versions.
+2026-01-21 11:16:42.087 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 5.5.5
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-01-21 11:16:42.813 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-01-21 11:16:42.816 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-01-21 11:16:44.558 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [After]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Before]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Between]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Cookie]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Header]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Host]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Method]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Path]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Query]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [ReadBody]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [RemoteAddr]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Weight]
+2026-01-21 11:16:44.559 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [CloudFoundryRouteService]
+2026-01-21 11:16:45.951 [main] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 9090 (http)
+2026-01-21 11:16:46.925 [main] INFO  c.e.apiGateway.ApiGatewayApplication - Started ApiGatewayApplication in 8.073 seconds (process running for 9.084)
+2026-01-21 11:18:09.219 [reactor-http-nio-3] INFO  com.seyha.common.logger.SeyhaLogger - 
+==================== RegisterKeyResolver ====================
+# Route ID       : 
+# Trace ID       : 
+# Span ID        : 
+# Client ID      : 
+# Endpoint       : /v1/key-resolvers/register
+# Method         : POST
+# Remote Address : 127.0.0.1
+# Host           : localhost
+# User Agent     : Postman
+# Request Time   : 2026-01-21 11:18:09
+# Status         : 200
+# Duration       : 0 ms
+# Response Time  : 2026-01-21 11:18:09
+# JSON Request   : {"policyCode":"PL006","strategy":"IP","headerName":"","fallbackStrategy":"IP","status":"ACTIVE"}
+# JSON Response  : {"id":"cbd6a702-e066-4282-bb58-66c585e8df1d","policyCode":"PL006","strategy":"IP","headerName":"","fallbackStrategy":"IP","status":"ACTIVE","createdAt":[2026,1,21,11,18,9,170996000],"updatedAt":[2026,1,21,11,18,9,170996000]}
+
+2026-01-21 11:19:19.184 [reactor-http-nio-5] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+2026-01-21 11:19:19.184 [reactor-http-nio-5] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Duplicate entry 'API003' for key 'route_code'
+2026-01-21 11:19:20.686 [reactor-http-nio-5] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+2026-01-21 11:19:20.686 [reactor-http-nio-5] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Duplicate entry 'API003' for key 'route_code'
+2026-01-21 11:19:22.013 [reactor-http-nio-5] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+2026-01-21 11:19:22.013 [reactor-http-nio-5] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Duplicate entry 'API003' for key 'route_code'
+2026-01-21 11:19:23.558 [reactor-http-nio-5] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 1062, SQLState: 23000
+2026-01-21 11:19:23.558 [reactor-http-nio-5] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Duplicate entry 'API003' for key 'route_code'
+2026-01-21 11:19:44.239 [reactor-http-nio-5] INFO  com.seyha.common.logger.SeyhaLogger - 
+==================== RegisterKeyResolver ====================
+# Route ID       : 
+# Trace ID       : 
+# Span ID        : 
+# Client ID      : 
+# Endpoint       : /v1/key-resolvers/register
+# Method         : POST
+# Remote Address : 127.0.0.1
+# Host           : localhost
+# User Agent     : Postman
+# Request Time   : 2026-01-21 11:19:44
+# Status         : 200
+# Duration       : 0 ms
+# Response Time  : 2026-01-21 11:19:44
+# JSON Request   : {"policyCode":"PL007","strategy":"IP","headerName":"","fallbackStrategy":"IP","status":"ACTIVE"}
+# JSON Response  : {"id":"1871832f-c354-48c8-a34c-5eeca84034c6","policyCode":"PL007","strategy":"IP","headerName":"","fallbackStrategy":"IP","status":"ACTIVE","createdAt":[2026,1,21,11,19,44,234096000],"updatedAt":[2026,1,21,11,19,44,234096000]}
+

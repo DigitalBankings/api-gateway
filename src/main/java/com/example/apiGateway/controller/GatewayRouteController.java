@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/gateway/route")
 @RequiredArgsConstructor
 public class GatewayRouteController {
-    private final GatewayRouteService gatewayRouteService;
+  private final GatewayRouteService gatewayRouteService;
 
-    @PostMapping("/register")
-    public GatewayRouteResponse createRoute(@RequestBody CreateGatewayRouteRequest request) {
-        return gatewayRouteService.create(request);
-    }
-
-
-
+  @PostMapping("/register")
+  public GatewayRouteResponse createRoute(@RequestBody CreateGatewayRouteRequest request) {
+    return gatewayRouteService.create(request);
+  }
 }
