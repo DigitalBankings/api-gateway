@@ -1,13 +1,13 @@
 package com.example.apiGateway.modles;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.apiGateway.enums.RouteStatus;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 
 @Entity
 @Table(name = "gateway_route")
@@ -19,31 +19,38 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class GatewayRoute {
 
   @Id
-  @Column(length = 36)
-  private String id; // UUID string
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;   // BIGINT PK (auto-generated)
 
-  @Column(name = "route_code", nullable = false, unique = true)
-  private String routeCode;
+  @Column(name = "service_name", nullable = false, length = 100)
+  private String serviceName;
 
-  @Column(nullable = false)
-  private String paths;
+  @Column(name = "route_code", nullable = false, unique = true, length = 100)
+  private String routeCode;   // Human-readable code
 
-  @Column(name = "target_uri", nullable = false)
+  @Column(name = "path", nullable = false, length = 255)
+  private String path;
+
+  @Column(name = "target_uri", nullable = false, length = 255)
   private String targetUri;
 
-  @Column(name = "http_method", nullable = false)
+  @Column(name = "http_method", nullable = false, length = 20)
   private String httpMethod;
 
   @Column(name = "time_out_ms", nullable = false)
-  private Integer timeOutMs = Integer.valueOf("3000");
+  private Integer timeOutMs = 30000;
 
   @Column(name = "auth_required", nullable = false)
-  private Boolean authRequired;
+  private Boolean authRequired = Boolean.TRUE;
 
-  @Column(nullable = false)
-  private String status = "ACTIVE";
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, length = 20)
+  private RouteStatus status = RouteStatus.ACTIVE;
 
-  @CreationTimestamp private LocalDateTime createdAt;
+  @CreationTimestamp
+  @Column(updatable = false)
+  private LocalDateTime createdAt;
 
-  @UpdateTimestamp private LocalDateTime updatedAt;
+  @UpdateTimestamp
+  private LocalDateTime updatedAt;
 }

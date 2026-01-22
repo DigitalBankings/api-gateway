@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class KeyResolverPolicyResponse {
-  private String id;
+  private Long id;
   private String policyCode;
   private KeyResolverStrategy strategy;
   private String headerName;

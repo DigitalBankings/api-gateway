@@ -14,8 +14,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class GatewayKeyResolverPolicy {
 
   @Id
-  @Column(length = 36)
-  private String id; // UUID string
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id; // UUID string
 
   @Column(length = 50, name = "policy_code")
   private String policyCode;
@@ -36,4 +36,5 @@ public class GatewayKeyResolverPolicy {
   @CreationTimestamp private LocalDateTime createdAt;
 
   @UpdateTimestamp private LocalDateTime updatedAt;
+
 }

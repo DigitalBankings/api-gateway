@@ -12,20 +12,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateGatewayRouteRequest {
 
-  @NotBlank private String routeCode;
-  @NotBlank private String paths;
+  @NotBlank private String serviceName;
+  private String routeCode;
+  @NotBlank private String path;
   @NotBlank private String httpMethod;
   @NotBlank private String targetUri;
   private boolean authRequired = true;
 
   public GatewayRoute toEntity() {
     GatewayRoute gatewayRoute = new GatewayRoute();
-    gatewayRoute.setId(UUID.randomUUID().toString());
-    gatewayRoute.setRouteCode(routeCode);
-    gatewayRoute.setPaths(paths);
+    gatewayRoute.setServiceName(serviceName);
+    gatewayRoute.setRouteCode(serviceName.toUpperCase() + "-" + UUID.randomUUID().toString().substring(0, 8));
+    gatewayRoute.setPath(path);
     gatewayRoute.setHttpMethod(httpMethod);
     gatewayRoute.setTargetUri(targetUri);
     gatewayRoute.setAuthRequired(authRequired);
     return gatewayRoute;
   }
+
 }

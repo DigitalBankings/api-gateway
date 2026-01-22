@@ -4,8 +4,10 @@ import com.example.apiGateway.dto.gatewayRoute.CreateGatewayRouteRequest;
 import com.example.apiGateway.dto.gatewayRoute.GatewayRouteResponse;
 import com.example.apiGateway.services.GatewayRouteService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/gateway/route")
 @RequiredArgsConstructor
@@ -14,6 +16,8 @@ public class GatewayRouteController {
 
   @PostMapping("/register")
   public GatewayRouteResponse createRoute(@RequestBody CreateGatewayRouteRequest request) {
+    log.info("gateway route request: {}", request);
+    log.info("gateway route response: {}", gatewayRouteService.create(request));
     return gatewayRouteService.create(request);
   }
 }

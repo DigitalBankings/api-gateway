@@ -1,24 +1,40 @@
 package com.example.apiGateway.dto.rateLimitPolicy;
 
 import com.example.apiGateway.enums.Status;
+import com.example.apiGateway.modles.GatewayRateLimitPolicy;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateRateLimitPolicy {
 
-  @NotNull private Integer id;
-
-  @NotNull private String policyCode;
-
+  @NotNull private Long id;
   private Integer replenishRate;
   private Integer burstCapacity;
   private Integer burstRate;
+  private Integer windowSeconds;
   private String keyResolverPolicyId;
-  private Status status = Status.ACTIVE;
+  private Status status;
+  private LocalDateTime createdAt = LocalDateTime.now();
+  private LocalDateTime updatedAt = LocalDateTime.now();
 
-  @CreationTimestamp private LocalDateTime createdAt;
+  public GatewayRateLimitPolicy toEntity() {
+    GatewayRateLimitPolicy gatewayRateLimitPolicy = new GatewayRateLimitPolicy();
+    gatewayRateLimitPolicy.setId(UUID.randomUUID().toString());
+    gatewayRateLimitPolicy.setReplenishRate(replenishRate);
+    gatewayRateLimitPolicy.setBurstCapacity(burstCapacity);
+    gatewayRateLimitPolicy.setWindowSeconds(windowSeconds);
+    gatewayRateLimitPolicy.setKeyResolverPolicyId(keyResolverPolicyId);
+    gatewayRateLimitPolicy.setStatus(Status.ACTIVE);
+    gatewayRateLimitPolicy.setCreatedAt(createdAt);
+    gatewayRateLimitPolicy.setUpdatedAt(updatedAt);
+    return gatewayRateLimitPolicy;
 
-  @UpdateTimestamp private LocalDateTime updatedAt;
+  }
 }

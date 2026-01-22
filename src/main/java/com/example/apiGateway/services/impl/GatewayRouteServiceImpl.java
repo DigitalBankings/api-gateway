@@ -19,9 +19,14 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
   // ---------- CREATE ----------
   @Override
   public GatewayRouteResponse create(CreateGatewayRouteRequest request) {
-    GatewayRoute saved = repository.save(request.toEntity());
-    GatewayRouteResponse response = GatewayRouteResponse.fromEntity(saved);
-    cacheStore.put(response);
-    return response;
+    try {
+      GatewayRoute saved = repository.save(request.toEntity());
+      GatewayRouteResponse response = GatewayRouteResponse.fromEntity(saved);
+//      cacheStore.put(response);
+      return response;
+    }catch (Exception e) {
+      throw  new RuntimeException(e);
+    }
+
   }
 }

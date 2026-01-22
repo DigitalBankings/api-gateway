@@ -24,8 +24,7 @@ public class CreateKeyResolverPolicyRequest {
 
   public GatewayKeyResolverPolicy toEntity() {
     GatewayKeyResolverPolicy gatewayKeyResolverPolicy = new GatewayKeyResolverPolicy();
-    gatewayKeyResolverPolicy.setId(UUID.randomUUID().toString());
-    gatewayKeyResolverPolicy.setPolicyCode(policyCode);
+    gatewayKeyResolverPolicy.setPolicyCode("PHL" + "-" + UUID.randomUUID().toString().substring(0, 8));
     gatewayKeyResolverPolicy.setStrategy(strategy);
     gatewayKeyResolverPolicy.setHeaderName(headerName);
     gatewayKeyResolverPolicy.setFallbackStrategy(fallbackStrategy);

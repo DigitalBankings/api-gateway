@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GatewayKeyResolverPolicyRepository
-    extends JpaRepository<GatewayKeyResolverPolicy, String> {
+    extends JpaRepository<GatewayKeyResolverPolicy, Long> {
 
   Optional<GatewayKeyResolverPolicy> findByPolicyCode(String policyCode);
 
