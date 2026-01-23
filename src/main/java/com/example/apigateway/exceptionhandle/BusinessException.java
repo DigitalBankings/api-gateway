@@ -1,4 +1,4 @@
-package com.example.apigateway.exceptionHandle;
+package com.example.apigateway.exceptionhandle;
 
 import com.example.apigateway.enums.GatewayErrorCode;
 import lombok.Getter;
