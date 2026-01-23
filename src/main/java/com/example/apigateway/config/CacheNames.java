@@ -1,7 +1,5 @@
 package com.example.apigateway.config;
 
-import lombok.AllArgsConstructor;
-
 public final class CacheNames {
   // Private constructor hides the default public one
   private CacheNames() {

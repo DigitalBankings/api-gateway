@@ -1,11 +1,13 @@
 package com.example.apigateway.fiters;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Component
 public class PostLoggingFilter implements GlobalFilter, Ordered {
 
@@ -21,13 +23,10 @@ public class PostLoggingFilter implements GlobalFilter, Ordered {
             Mono.fromRunnable(
                 () -> {
                   long duration = System.currentTimeMillis() - startTime;
-                  System.out.println(
-                      "POST FILTER → Status: "
-                          + exchange.getResponse().getStatusCode()
-                          + ", Duration: "
-                          + duration
-                          + "ms");
-                }));
+                    log.info("POST FILTER → Status: {}, Duration: {} ms",
+                            exchange.getResponse().getStatusCode(),
+                            duration);
+                                  }));
   }
 
   @Override
