@@ -24,10 +24,7 @@ public class PreLoggingFilter implements GlobalFilter, Ordered {
 
     String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
 
-     log.info("PRE FILTER → Method: {}, Path: {}, Authorization: {}",
-            method,
-            path,
-            authHeader);
+    log.info("PRE FILTER → Method: {}, Path: {}, Authorization: {}", method, path, authHeader);
 
     // Add correlation header
     exchange

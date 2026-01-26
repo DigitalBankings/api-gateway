@@ -1,3 +1,7 @@
 package com.example.apigateway.repositories;
 
-public interface GatewayCircuityBreakerPolicyRepository {}
+import com.example.apigateway.modles.GatewayCircuityBreakerPolicy;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GatewayCircuityBreakerPolicyRepository
+    extends JpaRepository<GatewayCircuityBreakerPolicy, Long> {}

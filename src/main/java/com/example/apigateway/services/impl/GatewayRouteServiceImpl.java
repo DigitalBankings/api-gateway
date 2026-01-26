@@ -22,11 +22,10 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
     try {
       GatewayRoute saved = repository.save(request.toEntity());
       GatewayRouteResponse response = GatewayRouteResponse.fromEntity(saved);
-//      cacheStore.put(response);
+      //      cacheStore.put(response);
       return response;
-    }catch (Exception e) {
-      throw  new RuntimeException(e);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
     }
-
   }
 }

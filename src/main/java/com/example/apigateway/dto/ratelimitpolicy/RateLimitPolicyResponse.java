@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RateLimitPolicyResponse {
 
-  private String id;
+  private Long id;
   private Integer replenishRate;
   private Integer burstCapacity;
   private Integer windowSeconds;
-  private String keyResolverPolicyId;
+  private Long keyResolverPolicyId;
   private Status status;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;

@@ -2,7 +2,6 @@ package com.example.apigateway.modles;
 
 import com.example.apigateway.enums.Status;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,8 +13,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class GatewayRateLimitPolicy {
 
   @Id
-  @Column(length = 36)
-  private String id; // UUID string
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id; // UUID string
 
   @Column(name = "replenish_rate")
   private Integer replenishRate;
@@ -27,13 +26,12 @@ public class GatewayRateLimitPolicy {
   private Integer windowSeconds;
 
   @Column(name = "key_resolver_policy_id")
-  private String keyResolverPolicyId;
+  private Long keyResolverPolicyId;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "status")
   private Status status = Status.ACTIVE;
 
   @CreationTimestamp private LocalDateTime createdAt;
-
   @UpdateTimestamp private LocalDateTime updatedAt;
 }

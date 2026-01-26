@@ -23,10 +23,11 @@ public class PostLoggingFilter implements GlobalFilter, Ordered {
             Mono.fromRunnable(
                 () -> {
                   long duration = System.currentTimeMillis() - startTime;
-                    log.info("POST FILTER → Status: {}, Duration: {} ms",
-                            exchange.getResponse().getStatusCode(),
-                            duration);
-                                  }));
+                  log.info(
+                      "POST FILTER → Status: {}, Duration: {} ms",
+                      exchange.getResponse().getStatusCode(),
+                      duration);
+                }));
   }
 
   @Override

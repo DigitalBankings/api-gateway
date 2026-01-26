@@ -2,9 +2,7 @@ package com.example.apigateway.dto.ratelimitpolicy;
 
 import com.example.apigateway.enums.Status;
 import com.example.apigateway.modles.GatewayRateLimitPolicy;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,19 +12,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateRateLimitPolicy {
 
-  @NotNull private Long id;
   private Integer replenishRate;
   private Integer burstCapacity;
   private Integer burstRate;
   private Integer windowSeconds;
-  private String keyResolverPolicyId;
+  private Long keyResolverPolicyId;
   private Status status;
   private LocalDateTime createdAt = LocalDateTime.now();
   private LocalDateTime updatedAt = LocalDateTime.now();
 
   public GatewayRateLimitPolicy toEntity() {
     GatewayRateLimitPolicy gatewayRateLimitPolicy = new GatewayRateLimitPolicy();
-    gatewayRateLimitPolicy.setId(UUID.randomUUID().toString());
     gatewayRateLimitPolicy.setReplenishRate(replenishRate);
     gatewayRateLimitPolicy.setBurstCapacity(burstCapacity);
     gatewayRateLimitPolicy.setWindowSeconds(windowSeconds);
@@ -35,6 +31,5 @@ public class CreateRateLimitPolicy {
     gatewayRateLimitPolicy.setCreatedAt(createdAt);
     gatewayRateLimitPolicy.setUpdatedAt(updatedAt);
     return gatewayRateLimitPolicy;
-
   }
 }

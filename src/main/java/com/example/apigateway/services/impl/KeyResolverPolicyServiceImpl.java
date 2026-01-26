@@ -27,7 +27,4 @@ public class KeyResolverPolicyServiceImpl implements KeyResolverPolicyService {
 
     return KeyResolverPolicyResponse.fromEntity(saved);
   }
-
-
-
 }

@@ -2,31 +2,26 @@ package com.example.apigateway.modles;
 
 import com.example.apigateway.enums.RouteStatus;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-
 @Entity
 @Table(name = "gateway_route")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class GatewayRoute {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;   // BIGINT PK (auto-generated)
+  private Long id; // BIGINT PK (auto-generated)
 
   @Column(name = "service_name", nullable = false, length = 100)
   private String serviceName;
 
   @Column(name = "route_code", nullable = false, unique = true, length = 100)
-  private String routeCode;   // Human-readable code
+  private String routeCode; // Human-readable code
 
   @Column(name = "path", nullable = false, length = 255)
   private String path;
@@ -51,6 +46,5 @@ public class GatewayRoute {
   @Column(updatable = false)
   private LocalDateTime createdAt;
 
-  @UpdateTimestamp
-  private LocalDateTime updatedAt;
+  @UpdateTimestamp private LocalDateTime updatedAt;
 }

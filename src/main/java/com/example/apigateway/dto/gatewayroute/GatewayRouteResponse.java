@@ -32,6 +32,5 @@ public class GatewayRouteResponse {
     gatewayRouteResponse.setTimeoutMs(gatewayRoute.getTimeOutMs());
     gatewayRouteResponse.setStatus(gatewayRoute.getStatus());
     return gatewayRouteResponse;
-
   }
 }

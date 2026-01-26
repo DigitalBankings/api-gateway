@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GatewayRateLimitPolicyRepository
-    extends JpaRepository<GatewayRateLimitPolicy, String> {
-}
+    extends JpaRepository<GatewayRateLimitPolicy, Long> {}

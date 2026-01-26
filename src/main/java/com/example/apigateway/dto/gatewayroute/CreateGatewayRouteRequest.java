@@ -22,12 +22,12 @@ public class CreateGatewayRouteRequest {
   public GatewayRoute toEntity() {
     GatewayRoute gatewayRoute = new GatewayRoute();
     gatewayRoute.setServiceName(serviceName);
-    gatewayRoute.setRouteCode(serviceName.toUpperCase() + "-" + UUID.randomUUID().toString().substring(0, 8));
+    gatewayRoute.setRouteCode(
+        serviceName.toUpperCase() + "-" + UUID.randomUUID().toString().substring(0, 8));
     gatewayRoute.setPath(path);
     gatewayRoute.setHttpMethod(httpMethod);
     gatewayRoute.setTargetUri(targetUri);
     gatewayRoute.setAuthRequired(authRequired);
     return gatewayRoute;
   }
-
 }
