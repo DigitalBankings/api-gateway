@@ -24,10 +24,11 @@ public class GatewayRouteController {
 
   @GetMapping
   public Page<GatewayRouteConfigResponse> getAllRoutes(
+
           @RequestParam(defaultValue = "0") int page,
           @RequestParam(defaultValue = "10") int size) {
-
     return gatewayRouteService.getAllRoutes(page, size);
+
   }
 
 

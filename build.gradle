@@ -58,6 +58,9 @@ dependencies {
     implementation "com.hazelcast:hazelcast"
     implementation "com.hazelcast:hazelcast-spring"
 
+    // API Doc
+    implementation "org.springdoc:springdoc-openapi-starter-webflux-ui:2.7.0"
+
     // Your library
     implementation "com.github.OEURNSEYHA:seyha-logger:1.0.3"
     compileOnly "jakarta.servlet:jakarta.servlet-api:6.0.0"

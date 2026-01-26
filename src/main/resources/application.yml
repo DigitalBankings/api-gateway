@@ -120,4 +120,3 @@ spring:
                 redis-rate-limiter.burstCapacity: 20
                 key-resolver: "#{@clientKeyResolver}"
 
-
