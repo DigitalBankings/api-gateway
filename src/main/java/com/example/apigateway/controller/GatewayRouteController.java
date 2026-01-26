@@ -1,11 +1,13 @@
 package com.example.apigateway.controller;
 
-import com.example.apigateway.dto.gatewayroute.CreateGatewayRouteRequest;
-import com.example.apigateway.dto.gatewayroute.GatewayRouteResponse;
+import com.example.apigateway.dto.gatewayroute.*;
 import com.example.apigateway.services.GatewayRouteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -15,9 +17,18 @@ public class GatewayRouteController {
   private final GatewayRouteService gatewayRouteService;
 
   @PostMapping("/register")
-  public GatewayRouteResponse createRoute(@RequestBody CreateGatewayRouteRequest request) {
-    log.info("gateway route request: {}", request);
-    log.info("gateway route response: {}", gatewayRouteService.create(request));
-    return gatewayRouteService.create(request);
+  public Map<String, GatewayRouteRuntimeDTO> registerRoute(
+          @RequestBody CreateFullGatewayRouteRequest request) {
+    return gatewayRouteService.createFullRoute(request);
   }
+
+  @GetMapping
+  public Page<GatewayRouteConfigResponse> getAllRoutes(
+          @RequestParam(defaultValue = "0") int page,
+          @RequestParam(defaultValue = "10") int size) {
+
+    return gatewayRouteService.getAllRoutes(page, size);
+  }
+
+
 }

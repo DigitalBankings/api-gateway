@@ -239,3 +239,6 @@ spring:
 
 ## Sequence diagram flow
 ![Architecture](spring-gateway.svg)
+
+## Flow chart
+![Architecture](gateway-flowchart.svg)
