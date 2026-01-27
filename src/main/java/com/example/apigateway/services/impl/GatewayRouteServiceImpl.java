@@ -1,5 +1,4 @@
 package com.example.apigateway.services.impl;
-
 import com.example.apigateway.dto.circuitbreaker.CircuitBreakerDTO;
 import com.example.apigateway.dto.gatewayroute.*;
 import com.example.apigateway.dto.ratelimitpolicy.RateLimitDTO;
@@ -16,15 +15,16 @@ import com.example.apigateway.services.GatewayRouteService;
 import com.example.apigateway.services.caches.GatewayRouteStore;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GatewayRouteServiceImpl implements GatewayRouteService {
@@ -106,18 +106,32 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
   }
 
   @Override
-  public Page<GatewayRouteConfigResponse> getAllRoutes(int page, int size) {
+  public PagedResponse<GatewayRouteConfigResponse> getAllRoutes(GetAllRequest getAllRequest){
 
-    Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-    Page<GatewayRoute> routePage = gatewayRouteRepository.findAll(pageable);
+    log.info("getAllRoutes : {}", getAllRequest);
+    // Create pageable object (0-based page internally)
+    PageRequest pageable = PageRequest.of(getAllRequest.getPage() - 1, getAllRequest.getSize(), Sort.by("createdAt").descending());
+    var routePage = gatewayRouteRepository.findAll(pageable);
 
-    return routePage.map(this::buildFullResponse);
+    // Map GatewayRoute to GatewayRouteConfigResponse
+    List<GatewayRouteConfigResponse> routeResponses = routePage
+            .stream()
+            .map(this::buildFullResponse)
+            .toList();
+
+    // Build modern pagination response
+    PagedResponse.Pagination pagination = new PagedResponse.Pagination(
+            getAllRequest.getSize(),
+            routePage.getTotalPages(),
+            routePage.getTotalElements(),
+            getAllRequest.getPage()
+    );
+
+    return new PagedResponse<>(routeResponses, pagination);
   }
 
   private GatewayRouteConfigResponse buildFullResponse(GatewayRoute route) {
-
     GatewayRoutePolicyMap map = gatewayRoutePolicyMapRepository.findByRouteId(route.getId()).orElse(null);
-
     GatewayRateLimitPolicy rate = null;
     GatewayCircuityBreakerPolicy cb = null;
 
@@ -142,7 +156,5 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
             .circuitBreaker(toCircuitBreakerDTO(cb))
             .build();
   }
-
-
 
 }

@@ -39,3 +39,6 @@ out/
 #log folder
 /logs/**
 /logs
+
+
+/src/main/resources/application-local.yml

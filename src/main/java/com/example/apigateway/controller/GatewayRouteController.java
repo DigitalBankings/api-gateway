@@ -22,12 +22,11 @@ public class GatewayRouteController {
     return gatewayRouteService.createFullRoute(request);
   }
 
-  @GetMapping
-  public Page<GatewayRouteConfigResponse> getAllRoutes(
+  @PostMapping("/getAll")
+  public PagedResponse<GatewayRouteConfigResponse> getAllRoutes(@RequestBody GetAllRequest getAllRequest)
 
-          @RequestParam(defaultValue = "0") int page,
-          @RequestParam(defaultValue = "10") int size) {
-    return gatewayRouteService.getAllRoutes(page, size);
+           {
+    return gatewayRouteService.getAllRoutes(getAllRequest);
 
   }
 
