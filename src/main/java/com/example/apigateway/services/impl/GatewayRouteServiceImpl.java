@@ -1,4 +1,5 @@
 package com.example.apigateway.services.impl;
+
 import com.example.apigateway.dto.circuitbreaker.CircuitBreakerDTO;
 import com.example.apigateway.dto.gatewayroute.*;
 import com.example.apigateway.dto.ratelimitpolicy.RateLimitDTO;
@@ -13,16 +14,14 @@ import com.example.apigateway.repositories.GatewayRoutePolicyMapRepository;
 import com.example.apigateway.repositories.GatewayRouteRepository;
 import com.example.apigateway.services.GatewayRouteService;
 import com.example.apigateway.services.caches.GatewayRouteStore;
-import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -35,10 +34,15 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
   private final GatewayCircuityBreakerPolicyRepository gatewayCircuityBreakerPolicyRepository;
   private final GatewayRouteStore cacheStore;
 
+  @Override
+  public GatewayRouteResponse create(CreateGatewayRouteRequest request) {
+    GatewayRoute save = gatewayRouteRepository.save(request.toEntity());
+    return GatewayRouteResponse.fromEntity(save);
+  }
 
   @Override
-  @Transactional
-  public Map<String, GatewayRouteRuntimeDTO> createFullRoute(CreateFullGatewayRouteRequest request) {
+  public Map<String, GatewayRouteRuntimeDTO> createFullRoute(
+      CreateFullGatewayRouteRequest request) {
 
     // 1. Save Route
     GatewayRoute route = new GatewayRoute();
@@ -48,7 +52,10 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
     route.setHttpMethod(request.getHttpMethod());
     route.setAuthRequired(request.isAuthRequired());
     route.setTimeOutMs(request.getTimeoutMs());
-    route.setRouteCode( request.getServiceName().toUpperCase() + "-" + UUID.randomUUID().toString().substring(0, 8));
+    route.setRouteCode(
+        request.getServiceName().toUpperCase()
+            + "-"
+            + UUID.randomUUID().toString().substring(0, 8));
 
     route = gatewayRouteRepository.save(route);
 
@@ -60,11 +67,16 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
     gatewayRoutePolicyMapRepository.save(map);
 
     // 3. Fetch Policies
-    GatewayRateLimitPolicy rate = gatewayRateLimitPolicyRepository.findById(request.getRateLimitPolicyId()).orElse(null);
-    GatewayCircuityBreakerPolicy cb = gatewayCircuityBreakerPolicyRepository.findById(request.getCircuitBreakerPolicyId()).orElse(null);
+    GatewayRateLimitPolicy rate =
+        gatewayRateLimitPolicyRepository.findById(request.getRateLimitPolicyId()).orElse(null);
+    GatewayCircuityBreakerPolicy cb =
+        gatewayCircuityBreakerPolicyRepository
+            .findById(request.getCircuitBreakerPolicyId())
+            .orElse(null);
 
     // 4. Build Runtime DTO
-    GatewayRouteRuntimeDTO dto = GatewayRouteRuntimeDTO.builder()
+    GatewayRouteRuntimeDTO dto =
+        GatewayRouteRuntimeDTO.builder()
             .serviceName(route.getServiceName())
             .path(route.getPath())
             .targetUri(route.getTargetUri())
@@ -83,55 +95,58 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
     if (rate == null) return null;
 
     return RateLimitDTO.builder()
-            .replenishRate(rate.getReplenishRate())
-            .burstCapacity(rate.getBurstCapacity())
-            .windowSeconds(rate.getWindowSeconds())
-//            .keyResolver(rate.getKeyResolverPolicy().getHeaderName())
-            .build();
+        .replenishRate(rate.getReplenishRate())
+        .burstCapacity(rate.getBurstCapacity())
+        .windowSeconds(rate.getWindowSeconds())
+        //            .keyResolver(rate.getKeyResolverPolicy().getHeaderName())
+        .build();
   }
 
   private CircuitBreakerDTO toCircuitBreakerDTO(GatewayCircuityBreakerPolicy cb) {
     if (cb == null) return null;
 
     return CircuitBreakerDTO.builder()
-            .slidingWindowType(SlidingWindowType.valueOf(cb.getSlidingWindowType().name()))
-            .windowSize(cb.getSlidingWindowSize())
-            .failureRateThreshold(cb.getFailureRateThreshold())
-            .slowCallRateThreshold(cb.getSlowCallRateThreshold())
-            .slowCallDurationMs(cb.getSlowCallDurationMs())
-            .openStateWaitMs(cb.getOpenStateWaitMs())
-            .halfOpenCalls(cb.getHalfOpenCalls())
-            .timeoutMs(cb.getTimeoutMs())
-            .build();
+        .slidingWindowType(SlidingWindowType.valueOf(cb.getSlidingWindowType().name()))
+        .windowSize(cb.getSlidingWindowSize())
+        .failureRateThreshold(cb.getFailureRateThreshold())
+        .slowCallRateThreshold(cb.getSlowCallRateThreshold())
+        .slowCallDurationMs(cb.getSlowCallDurationMs())
+        .openStateWaitMs(cb.getOpenStateWaitMs())
+        .halfOpenCalls(cb.getHalfOpenCalls())
+        .timeoutMs(cb.getTimeoutMs())
+        .build();
   }
 
   @Override
-  public PagedResponse<GatewayRouteConfigResponse> getAllRoutes(GetAllRequest getAllRequest){
+  public PagedResponse<GatewayRouteConfigResponse> getAllRoutes(GetAllRequest getAllRequest) {
 
     log.info("getAllRoutes : {}", getAllRequest);
     // Create pageable object (0-based page internally)
-    PageRequest pageable = PageRequest.of(getAllRequest.getPage() - 1, getAllRequest.getSize(), Sort.by("createdAt").descending());
+    PageRequest pageable =
+        PageRequest.of(
+            getAllRequest.getPage() - 1,
+            getAllRequest.getSize(),
+            Sort.by("createdAt").descending());
     var routePage = gatewayRouteRepository.findAll(pageable);
 
     // Map GatewayRoute to GatewayRouteConfigResponse
-    List<GatewayRouteConfigResponse> routeResponses = routePage
-            .stream()
-            .map(this::buildFullResponse)
-            .toList();
+    List<GatewayRouteConfigResponse> routeResponses =
+        routePage.stream().map(this::buildFullResponse).toList();
 
     // Build modern pagination response
-    PagedResponse.Pagination pagination = new PagedResponse.Pagination(
+    PagedResponse.Pagination pagination =
+        new PagedResponse.Pagination(
             getAllRequest.getSize(),
             routePage.getTotalPages(),
             routePage.getTotalElements(),
-            getAllRequest.getPage()
-    );
+            getAllRequest.getPage());
 
     return new PagedResponse<>(routeResponses, pagination);
   }
 
   private GatewayRouteConfigResponse buildFullResponse(GatewayRoute route) {
-    GatewayRoutePolicyMap map = gatewayRoutePolicyMapRepository.findByRouteId(route.getId()).orElse(null);
+    GatewayRoutePolicyMap map =
+        gatewayRoutePolicyMapRepository.findByRouteId(route.getId()).orElse(null);
     GatewayRateLimitPolicy rate = null;
     GatewayCircuityBreakerPolicy cb = null;
 
@@ -140,21 +155,23 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
         rate = gatewayRateLimitPolicyRepository.findById(map.getRateLimitPolicyId()).orElse(null);
       }
       if (map.getCircuitBreakerPolicyId() != null) {
-        cb = gatewayCircuityBreakerPolicyRepository.findById(map.getCircuitBreakerPolicyId()).orElse(null);
+        cb =
+            gatewayCircuityBreakerPolicyRepository
+                .findById(map.getCircuitBreakerPolicyId())
+                .orElse(null);
       }
     }
 
     return GatewayRouteConfigResponse.builder()
-            .routeCode(route.getRouteCode())
-            .serviceName(route.getServiceName())
-            .path(route.getPath())
-            .targetUri(route.getTargetUri())
-            .method(route.getHttpMethod())
-            .timeoutMs(route.getTimeOutMs())
-            .authRequired(true)
-            .rateLimit(toRateLimitDTO(rate))
-            .circuitBreaker(toCircuitBreakerDTO(cb))
-            .build();
+        .routeCode(route.getRouteCode())
+        .serviceName(route.getServiceName())
+        .path(route.getPath())
+        .targetUri(route.getTargetUri())
+        .method(route.getHttpMethod())
+        .timeoutMs(route.getTimeOutMs())
+        .authRequired(true)
+        .rateLimit(toRateLimitDTO(rate))
+        .circuitBreaker(toCircuitBreakerDTO(cb))
+        .build();
   }
-
 }

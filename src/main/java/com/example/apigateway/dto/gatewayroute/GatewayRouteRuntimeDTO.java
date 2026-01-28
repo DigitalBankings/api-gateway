@@ -9,13 +9,13 @@ import lombok.Data;
 @Builder
 public class GatewayRouteRuntimeDTO {
 
-    private String serviceName;
-    private String path;
-    private String targetUri;
-    private String method;
-    private Integer timeoutMs;
-    private boolean authRequired;
+  private String serviceName;
+  private String path;
+  private String targetUri;
+  private String method;
+  private Integer timeoutMs;
+  private boolean authRequired;
 
-    private RateLimitDTO rateLimit;
-    private CircuitBreakerDTO circuitBreaker;
+  private RateLimitDTO rateLimit;
+  private CircuitBreakerDTO circuitBreaker;
 }

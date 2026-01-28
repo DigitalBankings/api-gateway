@@ -22,5 +22,4 @@ public class CreateGatewayRouteMapRequest {
     gatewayRoutePolicyMap.setStatus(status);
     return gatewayRoutePolicyMap;
   }
-
 }

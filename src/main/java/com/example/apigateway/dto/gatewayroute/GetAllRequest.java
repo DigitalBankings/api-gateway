@@ -1,6 +1,5 @@
 package com.example.apigateway.dto.gatewayroute;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetAllRequest {
-    private int page;
-    private int size;
+  private int page;
+  private int size;
 }

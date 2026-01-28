@@ -7,12 +7,12 @@ import lombok.Data;
 @Data
 @Builder
 public class CircuitBreakerDTO {
-    private SlidingWindowType slidingWindowType;
-    private int windowSize;
-    private int failureRateThreshold;
-    private int slowCallRateThreshold;
-    private int slowCallDurationMs;
-    private int openStateWaitMs;
-    private int halfOpenCalls;
-    private int timeoutMs;
+  private SlidingWindowType slidingWindowType;
+  private int windowSize;
+  private int failureRateThreshold;
+  private int slowCallRateThreshold;
+  private int slowCallDurationMs;
+  private int openStateWaitMs;
+  private int halfOpenCalls;
+  private int timeoutMs;
 }

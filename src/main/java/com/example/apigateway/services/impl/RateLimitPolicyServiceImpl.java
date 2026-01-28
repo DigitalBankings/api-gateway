@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class RateLimitPolicyServiceImpl implements RateLimitPolicyService {
 
   private final GatewayRateLimitPolicyRepository rateLimitPolicyRepository;
+
   @Override
   public RateLimitPolicyResponse create(CreateRateLimitPolicy createRateLimitPolicy) {
     GatewayRateLimitPolicy gatewayRateLimitPolicy =
@@ -23,5 +24,4 @@ public class RateLimitPolicyServiceImpl implements RateLimitPolicyService {
         "RateLimitPolicy created: {}", RateLimitPolicyResponse.fromEntity(gatewayRateLimitPolicy));
     return RateLimitPolicyResponse.fromEntity(gatewayRateLimitPolicy);
   }
-
 }

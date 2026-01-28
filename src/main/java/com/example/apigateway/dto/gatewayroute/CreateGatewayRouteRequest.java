@@ -30,5 +30,4 @@ public class CreateGatewayRouteRequest {
     gatewayRoute.setAuthRequired(authRequired);
     return gatewayRoute;
   }
-
 }

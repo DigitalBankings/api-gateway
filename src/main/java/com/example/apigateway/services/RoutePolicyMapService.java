@@ -4,5 +4,5 @@ import com.example.apigateway.dto.gatewayroutemapdto.CreateGatewayRouteMapReques
 import com.example.apigateway.dto.gatewayroutemapdto.ResponseGatewayRouteMap;
 
 public interface RoutePolicyMapService {
-    ResponseGatewayRouteMap createRouteMap(CreateGatewayRouteMapRequest request);
+  ResponseGatewayRouteMap createRouteMap(CreateGatewayRouteMapRequest request);
 }

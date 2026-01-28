@@ -18,8 +18,8 @@ public class CreateRateLimitPolicy {
   private Integer windowSeconds;
   private Long keyResolverPolicyId;
   private Status status;
-  private LocalDateTime createdAt = LocalDateTime.now();
-  private LocalDateTime updatedAt = LocalDateTime.now();
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
 
   public GatewayRateLimitPolicy toEntity() {
     GatewayRateLimitPolicy gatewayRateLimitPolicy = new GatewayRateLimitPolicy();
@@ -28,8 +28,8 @@ public class CreateRateLimitPolicy {
     gatewayRateLimitPolicy.setWindowSeconds(windowSeconds);
     gatewayRateLimitPolicy.setKeyResolverPolicyId(keyResolverPolicyId);
     gatewayRateLimitPolicy.setStatus(Status.ACTIVE);
-    gatewayRateLimitPolicy.setCreatedAt(createdAt);
-    gatewayRateLimitPolicy.setUpdatedAt(updatedAt);
+    gatewayRateLimitPolicy.setCreatedAt(LocalDateTime.now());
+    gatewayRateLimitPolicy.setUpdatedAt(LocalDateTime.now());
     return gatewayRateLimitPolicy;
   }
 }
