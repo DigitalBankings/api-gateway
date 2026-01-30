@@ -1,7 +1,9 @@
 package com.example.apigateway.controller;
 
+import com.example.apigateway.dto.gatewayroute.GatewayRouteConfigResponse;
 import com.example.apigateway.dto.gatewayroutemapdto.CreateGatewayRouteMapRequest;
-import com.example.apigateway.dto.gatewayroutemapdto.ResponseGatewayRouteMap;
+import com.example.apigateway.dto.gatewayroutemapdto.GetRouteMapRequest;
+import com.example.apigateway.dto.gatewayroutemapdto.GetRouteMapResponse;
 import com.example.apigateway.services.RoutePolicyMapService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +20,16 @@ public class RouteMapPolicyController {
   private final RoutePolicyMapService routePolicyMapService;
 
   @PostMapping("/register")
-  public ResponseGatewayRouteMap createGatewayMapPolicy(
+  public GatewayRouteConfigResponse createGatewayMapPolicy(
       @RequestBody CreateGatewayRouteMapRequest request) {
     log.info("createGatewayMapPolicy: {}", request);
     return routePolicyMapService.createRouteMap(request);
   }
+
+  @PostMapping("/getAll")
+  public GetRouteMapResponse getAllRouteMaps(@RequestBody GetRouteMapRequest request) {
+    return routePolicyMapService.getAllRouteMaps(request);
+
+  }
+
 }

@@ -20,13 +20,15 @@ public class GatewayKeyResolverPolicy {
   @Column(length = 50, name = "policy_code")
   private String policyCode;
 
-  @Column(name = "strategy", length = 30, nullable = false)
-  private KeyResolverStrategy strategy = KeyResolverStrategy.API_KEY;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "strategy", nullable = false)
+  private KeyResolverStrategy strategy;
 
   @Column(name = "header_name", length = 100)
   private String headerName;
 
-  @Column(name = "fallback_strategy", length = 30)
+  @Enumerated(EnumType.STRING)
+  @Column(name = "fallback_strategy")
   private KeyResolverStrategy fallbackStrategy;
 
   @Enumerated(EnumType.STRING)
@@ -34,6 +36,7 @@ public class GatewayKeyResolverPolicy {
   private Status status;
 
   @CreationTimestamp private LocalDateTime createdAt;
-
   @UpdateTimestamp private LocalDateTime updatedAt;
+
+
 }

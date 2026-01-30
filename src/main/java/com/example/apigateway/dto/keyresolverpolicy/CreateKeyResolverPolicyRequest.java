@@ -16,7 +16,6 @@ import lombok.NoArgsConstructor;
 public class CreateKeyResolverPolicyRequest {
 
   @NotBlank private String policyCode;
-
   @NotNull private KeyResolverStrategy strategy;
   private String headerName;
   private KeyResolverStrategy fallbackStrategy;
@@ -29,7 +28,7 @@ public class CreateKeyResolverPolicyRequest {
     gatewayKeyResolverPolicy.setStrategy(strategy);
     gatewayKeyResolverPolicy.setHeaderName(headerName);
     gatewayKeyResolverPolicy.setFallbackStrategy(fallbackStrategy);
-    gatewayKeyResolverPolicy.setStatus(Status.valueOf(status.name()));
+    gatewayKeyResolverPolicy.setStatus(status);
     return gatewayKeyResolverPolicy;
   }
 }

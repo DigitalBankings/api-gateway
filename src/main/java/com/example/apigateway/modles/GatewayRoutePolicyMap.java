@@ -3,8 +3,8 @@ package com.example.apigateway.modles;
 import com.example.apigateway.enums.Status;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import lombok.Getter;
-import lombok.Setter;
+
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,6 +12,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table(name = "gateway_route_policy_map")
 @Setter
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class GatewayRoutePolicyMap {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

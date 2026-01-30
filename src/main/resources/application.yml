@@ -3,6 +3,9 @@ server:
   shutdown: graceful
 
 spring:
+  main:
+    allow-circular-references: true
+
   application:
     name: api-gateway
 
@@ -80,21 +83,21 @@ spring:
         # ------------------------
         # /authorize → POST only, high TPS
         # ------------------------
-        - id: oauth2-authorize
-          uri: http://localhost:8000
-          predicates:
-            - Path=/api/system/oauth2/authorize
-            - Method=POST
-          filters:
-            - StripPrefix=0
-            - name: CircuitBreaker
-              args:
-                name: authServiceCB
-            - name: RequestRateLimiter
-              args:
-                redis-rate-limiter.replenishRate: 5
-                redis-rate-limiter.burstCapacity: 6
-                key-resolver: "#{@clientKeyResolver}"
+#        - id: oauth2-authorize
+#          uri: http://localhost:8000
+#          predicates:
+#            - Path=/api/system/oauth2/authorize
+#            - Method=POST
+#          filters:
+#            - StripPrefix=0
+#            - name: CircuitBreaker
+#              args:
+#                name: authServiceCB
+#            - name: RequestRateLimiter
+#              args:
+#                redis-rate-limiter.replenishRate: 5
+#                redis-rate-limiter.burstCapacity: 6
+#                key-resolver: "#{@clientKeyResolver}"
 
 
         # ------------------------

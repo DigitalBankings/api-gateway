@@ -19,9 +19,11 @@ public class GatewayRouteController {
     return gatewayRouteService.create(request);
   }
 
-  @PostMapping("/getAll")
-  public PagedResponse<GatewayRouteConfigResponse> getAllRoutes(
-      @RequestBody GetAllRequest getAllRequest) {
-    return gatewayRouteService.getAllRoutes(getAllRequest);
-  }
+  //  @PostMapping("/getAll")
+  //  public PagedResponse<GatewayRouteConfigResponse> getAllRoutes(
+  //      @RequestBody GetAllRequest getAllRequest) {
+  //    return gatewayRouteService.getAllRoutes(getAllRequest);
+  //  }
+
+
 }

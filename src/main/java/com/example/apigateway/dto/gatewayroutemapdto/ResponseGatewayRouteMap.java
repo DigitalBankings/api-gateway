@@ -3,9 +3,9 @@ package com.example.apigateway.dto.gatewayroutemapdto;
 import com.example.apigateway.enums.KeyResolverStrategy;
 import com.example.apigateway.enums.SlidingWindowType;
 import com.example.apigateway.modles.GatewayCircuityBreakerPolicy;
+import com.example.apigateway.modles.GatewayKeyResolverPolicy;
 import com.example.apigateway.modles.GatewayRateLimitPolicy;
 import com.example.apigateway.modles.GatewayRoute;
-import com.example.apigateway.modles.GatewayKeyResolverPolicy;
 import lombok.Builder;
 import lombok.Data;
 
@@ -46,28 +46,31 @@ public class ResponseGatewayRouteMap {
   }
 
   // Builder from Entities
-  public static ResponseGatewayRouteMap fromEntities(GatewayRoute route,
-                                                     GatewayRateLimitPolicy rateLimit,
-                                                     GatewayCircuityBreakerPolicy cb,
-                                                     GatewayKeyResolverPolicy keyResolver) {
+  public static ResponseGatewayRouteMap fromEntities(
+      GatewayRoute route,
+      GatewayRateLimitPolicy rateLimit,
+      GatewayCircuityBreakerPolicy cb,
+      GatewayKeyResolverPolicy keyResolver) {
     return ResponseGatewayRouteMap.builder()
-            .routeCode(route.getRouteCode())
-            .serviceName(route.getServiceName())
-            .path(route.getPath())
-            .targetUri(route.getTargetUri())
-            .method(route.getHttpMethod())
-            .timeoutMs(route.getTimeOutMs())
-            .authRequired(route.getAuthRequired())
-            .rateLimit(rateLimit != null
-                    ? RateLimitDTO.builder()
+        .routeCode(route.getRouteCode())
+        .serviceName(route.getServiceName())
+        .path(route.getPath())
+        .targetUri(route.getTargetUri())
+        .method(route.getHttpMethod())
+        .timeoutMs(route.getTimeOutMs())
+        .authRequired(route.getAuthRequired())
+        .rateLimit(
+            rateLimit != null
+                ? RateLimitDTO.builder()
                     .replenishRate(rateLimit.getReplenishRate())
                     .burstCapacity(rateLimit.getBurstCapacity())
                     .windowSeconds(rateLimit.getWindowSeconds())
                     .keyResolver(keyResolver != null ? keyResolver.getStrategy() : null)
                     .build()
-                    : null)
-            .circuitBreaker(cb != null
-                    ? CircuitBreakerDTO.builder()
+                : null)
+        .circuitBreaker(
+            cb != null
+                ? CircuitBreakerDTO.builder()
                     .slidingWindowType(cb.getSlidingWindowType())
                     .windowSize(cb.getSlidingWindowSize())
                     .failureRateThreshold(cb.getFailureRateThreshold())
@@ -77,7 +80,7 @@ public class ResponseGatewayRouteMap {
                     .halfOpenCalls(cb.getHalfOpenCalls())
                     .timeoutMs(cb.getTimeoutMs())
                     .build()
-                    : null)
-            .build();
+                : null)
+        .build();
   }
 }

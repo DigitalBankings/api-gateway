@@ -47,6 +47,7 @@ public class GatewayCircuityBreakerPolicy {
   private Integer timeoutMs;
 
   @CreationTimestamp private LocalDateTime createdAt;
-
   @UpdateTimestamp private LocalDateTime updatedAt;
+
+
 }
