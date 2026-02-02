@@ -29,7 +29,5 @@ public class RouteMapPolicyController {
   @PostMapping("/getAll")
   public GetRouteMapResponse getAllRouteMaps(@RequestBody GetRouteMapRequest request) {
     return routePolicyMapService.getAllRouteMaps(request);
-
   }
-
 }

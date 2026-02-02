@@ -48,6 +48,4 @@ public class GatewayCircuityBreakerPolicy {
 
   @CreationTimestamp private LocalDateTime createdAt;
   @UpdateTimestamp private LocalDateTime updatedAt;
-
-
 }
