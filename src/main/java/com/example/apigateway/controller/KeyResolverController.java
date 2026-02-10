@@ -3,7 +3,6 @@ package com.example.apigateway.controller;
 import com.example.apigateway.dto.keyresolverpolicy.CreateKeyResolverPolicyRequest;
 import com.example.apigateway.dto.keyresolverpolicy.KeyResolverPolicyResponse;
 import com.example.apigateway.services.KeyResolverPolicyService;
-import com.seyha.common.logger.SeyhaLogger;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,24 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 public class KeyResolverController {
 
   private final KeyResolverPolicyService keyResolverPolicyService;
-  private final SeyhaLogger seyhaLogger;
 
   @PostMapping("register")
   public KeyResolverPolicyResponse create(@RequestBody CreateKeyResolverPolicyRequest request) {
     KeyResolverPolicyResponse response = keyResolverPolicyService.create(request);
-    SeyhaLogger.RequestInfo reqInfo = new SeyhaLogger.RequestInfo();
-    reqInfo.setEndpoint("/v1/key-resolvers/register");
-    reqInfo.setMethod("POST");
-    reqInfo.setBody(request); // your DTO
-    reqInfo.setRemoteAddress("127.0.0.1"); // optional
-    reqInfo.setHost("localhost"); // optional
-    reqInfo.setUserAgent("Postman"); // optional
+    //    SeyhaLogger.RequestInfo reqInfo = new SeyhaLogger.RequestInfo();
+    //    reqInfo.setEndpoint("/v1/key-resolvers/register");
+    //    reqInfo.setMethod("POST");
+    //    reqInfo.setBody(request); // your DTO
+    //    reqInfo.setRemoteAddress("127.0.0.1"); // optional
+    //    reqInfo.setHost("localhost"); // optional
+    //    reqInfo.setUserAgent("Postman"); // optional
+    //
+    //    SeyhaLogger.ResponseInfo resInfo = new SeyhaLogger.ResponseInfo();
+    //    resInfo.setStatus(200); // HTTP status
+    //    resInfo.setBody(response); // your DTO
 
-    SeyhaLogger.ResponseInfo resInfo = new SeyhaLogger.ResponseInfo();
-    resInfo.setStatus(200); // HTTP status
-    resInfo.setBody(response); // your DTO
-
-    seyhaLogger.log("RegisterKeyResolver", reqInfo, resInfo);
+    //    seyhaLogger.log("RegisterKeyResolver", reqInfo, resInfo);
     return response;
   }
 }

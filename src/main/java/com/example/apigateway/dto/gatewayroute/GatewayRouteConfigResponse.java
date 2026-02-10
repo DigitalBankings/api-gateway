@@ -41,7 +41,7 @@ public class GatewayRouteConfigResponse {
   @JsonIgnoreProperties(ignoreUnknown = true)
   public static class Filters {
     private Integer timeoutMs;
-    private Boolean authRequired;
+    private boolean authRequired;
     private RateLimit rateLimit;
     private CircuitBreaker circuitBreaker;
 

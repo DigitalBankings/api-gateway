@@ -62,7 +62,7 @@ dependencies {
     implementation "org.springdoc:springdoc-openapi-starter-webflux-ui:2.7.0"
 
     // Your library
-    implementation "com.github.OEURNSEYHA:seyha-logger:1.0.3"
+    implementation "com.github.OEURNSEYHA:seyha-logger:1.0.5"
     compileOnly "jakarta.servlet:jakarta.servlet-api:6.0.0"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -1,4 +1,4 @@
-package com.example.apigateway.fiters;
+package com.example.apigateway.exceptionhandle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
@@ -40,7 +40,6 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
     }
 
     /* ---------- STATUS MAPPING ---------- */
-
     if (cause instanceof TimeoutException) {
       // Service slow
       status = HttpStatus.GATEWAY_TIMEOUT; // 504
@@ -68,10 +67,8 @@ public class GlobalErrorHandler implements ErrorWebExceptionHandler {
     }
 
     /* ---------- RESPONSE BODY ---------- */
-
     exchange.getResponse().setStatusCode(status);
     exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
-
     Map<String, Object> body = new HashMap<>();
     body.put("errorCode", status.name());
     body.put("message", message);

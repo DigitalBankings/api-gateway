@@ -1,8 +1,9 @@
-package com.example.apigateway.fiters;
+package com.example.apigateway.filters;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -24,7 +25,12 @@ public class PreLoggingFilter implements GlobalFilter, Ordered {
 
     String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
 
-    log.info("PRE FILTER → Method: {}, Path: {}, Authorization: {}", method, path, authHeader);
+    ServerHttpRequest request = exchange.getRequest();
+    log.info(
+        "PRE FILTER → Method: {}, Path: {}, Header: {}",
+        request.getMethod(),
+        request.getPath(),
+        authHeader);
 
     // Add correlation header
     exchange
