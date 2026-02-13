@@ -1,10 +1,7 @@
 package com.example.apigateway.services.impl;
 
 import com.example.apigateway.dto.gatewayroute.*;
-import com.example.apigateway.modles.GatewayCircuityBreakerPolicy;
-import com.example.apigateway.modles.GatewayRateLimitPolicy;
 import com.example.apigateway.modles.GatewayRoute;
-import com.example.apigateway.modles.GatewayRoutePolicyMap;
 import com.example.apigateway.repositories.GatewayCircuityBreakerPolicyRepository;
 import com.example.apigateway.repositories.GatewayRateLimitPolicyRepository;
 import com.example.apigateway.repositories.GatewayRoutePolicyMapRepository;
@@ -13,11 +10,7 @@ import com.example.apigateway.services.GatewayRouteService;
 import com.example.apigateway.services.caches.GatewayRouteStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -35,6 +28,4 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
     GatewayRoute save = gatewayRouteRepository.save(request.toEntity());
     return GatewayRouteResponse.fromEntity(save);
   }
-
-
 }

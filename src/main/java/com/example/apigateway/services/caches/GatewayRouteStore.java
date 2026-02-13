@@ -32,7 +32,7 @@ public class GatewayRouteStore {
   @CachePut(cacheNames = CacheNames.GATEWAY_ROUTE, key = "'ALL'")
   public Collection<GatewayRouteConfigResponse> refreshAllRoutes() {
     Collection<GatewayRouteConfigResponse> routes = routePolicyMapService.getAllRoutesFromDB();
-//    log.info("Refreshing all routes cache from DB, size={}", routes.size());
+    //    log.info("Refreshing all routes cache from DB, size={}", routes.size());
 
     // 🔥 Publish refresh event so Gateway reloads dynamically
     publisher.publishEvent(new RefreshRoutesEvent(this));
@@ -42,14 +42,14 @@ public class GatewayRouteStore {
   /** Get a single route by routeCode from cache if available */
   @Cacheable(cacheNames = CacheNames.GATEWAY_ROUTE, key = "#routeCode")
   public GatewayRouteConfigResponse get(String routeCode) {
-//    log.info("Cache miss: loading route {} from DB", routeCode);
+    //    log.info("Cache miss: loading route {} from DB", routeCode);
     return routePolicyMapService.getRouteConfigFromDB(routeCode);
   }
 
   /** Put/update a route into cache */
   @CachePut(cacheNames = CacheNames.GATEWAY_ROUTE, key = "#route.routeId")
   public GatewayRouteConfigResponse put(GatewayRouteConfigResponse route) {
-//    log.info("Updating route {} into cache", route.getRouteId());
+    //    log.info("Updating route {} into cache", route.getRouteId());
     return route;
   }
 
