@@ -60,9 +60,9 @@ dependencies {
 
     // API Doc
     implementation "org.springdoc:springdoc-openapi-starter-webflux-ui:2.7.0"
-
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
     // Your library
-    implementation "com.github.OEURNSEYHA:seyha-logger:1.0.5"
+    implementation "com.github.OEURNSEYHA:seyha-logger:1.1.16"
     compileOnly "jakarta.servlet:jakarta.servlet-api:6.0.0"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

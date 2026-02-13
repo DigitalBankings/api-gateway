@@ -8,38 +8,29 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.UUID;
+
+
 @Slf4j
 @Component
 public class PreLoggingFilter implements GlobalFilter, Ordered {
 
   @Override
-  public Mono<Void> filter(
-      ServerWebExchange exchange,
-      org.springframework.cloud.gateway.filter.GatewayFilterChain chain) {
-    // Fix for getMethod
-    String method =
-        exchange.getRequest().getMethod() != null
-            ? exchange.getRequest().getMethod().name()
-            : "UNKNOWN";
-    String path = exchange.getRequest().getPath().value();
-
-    String authHeader = exchange.getRequest().getHeaders().getFirst("Authorization");
+  public Mono<Void> filter(ServerWebExchange exchange,
+                           org.springframework.cloud.gateway.filter.GatewayFilterChain chain) {
 
     ServerHttpRequest request = exchange.getRequest();
-    log.info(
-        "PRE FILTER → Method: {}, Path: {}, Header: {}",
-        request.getMethod(),
-        request.getPath(),
-        authHeader);
 
-    // Add correlation header
-    exchange
-        .getRequest()
-        .mutate()
-        .header("X-Correlation-ID", java.util.UUID.randomUUID().toString())
-        .build();
+    log.info("PRE FILTER → Method: {}, Path: {}, Header: {}",
+            request.getMethod(),
+            request.getPath(),
+            request.getHeaders().getFirst("Authorization"));
 
-    return chain.filter(exchange);
+    ServerHttpRequest mutatedRequest = request.mutate()
+            .header("X-Correlation-ID", UUID.randomUUID().toString())
+            .build();
+
+    return chain.filter(exchange.mutate().request(mutatedRequest).build());
   }
 
   @Override
