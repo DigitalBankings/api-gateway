@@ -21,19 +21,6 @@ public class KeyResolverController {
   @PostMapping("register")
   public KeyResolverPolicyResponse create(@RequestBody CreateKeyResolverPolicyRequest request) {
     KeyResolverPolicyResponse response = keyResolverPolicyService.create(request);
-    //    SeyhaLogger.RequestInfo reqInfo = new SeyhaLogger.RequestInfo();
-    //    reqInfo.setEndpoint("/v1/key-resolvers/register");
-    //    reqInfo.setMethod("POST");
-    //    reqInfo.setBody(request); // your DTO
-    //    reqInfo.setRemoteAddress("127.0.0.1"); // optional
-    //    reqInfo.setHost("localhost"); // optional
-    //    reqInfo.setUserAgent("Postman"); // optional
-    //
-    //    SeyhaLogger.ResponseInfo resInfo = new SeyhaLogger.ResponseInfo();
-    //    resInfo.setStatus(200); // HTTP status
-    //    resInfo.setBody(response); // your DTO
-
-    //    seyhaLogger.log("RegisterKeyResolver", reqInfo, resInfo);
     return response;
   }
 }

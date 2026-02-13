@@ -15,7 +15,6 @@ public class GatewayRouteController {
 
   @PostMapping("/register")
   public GatewayRouteResponse registerRoute(@RequestBody CreateGatewayRouteRequest request) {
-    log.info("Registering gateway route : {}", request);
     return gatewayRouteService.create(request);
   }
 

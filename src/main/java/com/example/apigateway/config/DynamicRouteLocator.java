@@ -41,8 +41,6 @@ public class DynamicRouteLocator implements RouteDefinitionLocator {
 
     definition.setPredicates(buildPredicates(route));
     definition.setFilters(buildFilters(route));
-
-    log.info("Loaded Route: {} → {}", route.getRouteId(), route.getUri());
     return definition;
   }
 

@@ -22,7 +22,6 @@ public class RouteMapPolicyController {
   @PostMapping("/register")
   public GatewayRouteConfigResponse createGatewayMapPolicy(
       @RequestBody CreateGatewayRouteMapRequest request) {
-    //    log.info("createGatewayMapPolicy: {}", request);
     return routePolicyMapService.createRouteMap(request);
   }
 
