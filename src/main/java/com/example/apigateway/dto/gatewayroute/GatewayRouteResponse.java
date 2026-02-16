@@ -29,6 +29,7 @@ public class GatewayRouteResponse {
     gatewayRouteResponse.setPaths(gatewayRoute.getPath());
     gatewayRouteResponse.setHttpMethod(gatewayRoute.getHttpMethod());
     gatewayRouteResponse.setTargetUri(gatewayRoute.getTargetUri());
+    gatewayRouteResponse.setAuthRequired(gatewayRoute.getAuthRequired());
     gatewayRouteResponse.setTimeoutMs(gatewayRoute.getTimeOutMs());
     gatewayRouteResponse.setStatus(gatewayRoute.getStatus());
     return gatewayRouteResponse;

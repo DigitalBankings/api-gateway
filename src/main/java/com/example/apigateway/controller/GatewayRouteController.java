@@ -18,10 +18,18 @@ public class GatewayRouteController {
     return gatewayRouteService.create(request);
   }
 
-  //  @PostMapping("/getAll")
-  //  public PagedResponse<GatewayRouteConfigResponse> getAllRoutes(
-  //      @RequestBody GetAllRequest getAllRequest) {
-  //    return gatewayRouteService.getAllRoutes(getAllRequest);
-  //  }
+  @PostMapping("/getAll")
+  public PagedResponse<GatewayRouteResponse> getAll(@RequestBody GetAllRequest request) {
+    return gatewayRouteService.getAll(request);
+  }
 
+  @GetMapping("getOne/{routeId}")
+  public GatewayRouteResponse getOne(@PathVariable Long routeId) {
+    return gatewayRouteService.getOneById(routeId);
+  }
+
+  @PostMapping("updateByRouteId")
+  public GatewayRouteResponse updateByRouteId(@RequestBody UpdateGatewayRouteRequest request) {
+    return gatewayRouteService.updateRouteById(request);
+  }
 }

@@ -79,7 +79,7 @@ public class RoutePolicyMapServiceImpl implements RoutePolicyMapService {
   @Transactional(Transactional.TxType.SUPPORTS)
   public GetRouteMapResponse getAllRouteMaps(GetRouteMapRequest request) {
 
-    Pageable pageable = PageRequest.of(request.getPage(), request.getSize());
+    Pageable pageable = PageRequest.of(Math.max(request.getPage() - 1, 0), request.getSize());
 
     Specification<GatewayRoutePolicyMap> spec =
         (root, query, cb) -> {
@@ -158,7 +158,7 @@ public class RoutePolicyMapServiceImpl implements RoutePolicyMapService {
     GetRouteMapResponse response = new GetRouteMapResponse();
     response.setTotalElements(pageMap.getTotalElements());
     response.setTotalPages(pageMap.getTotalPages());
-    response.setCurrentPage(pageMap.getNumber());
+    response.setCurrentPage(pageMap.getNumber() + 1);
     response.setItems(new ArrayList<>(routeMap.values()));
 
     return response;
