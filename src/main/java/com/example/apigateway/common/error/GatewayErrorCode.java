@@ -13,13 +13,19 @@ public enum GatewayErrorCode {
 
   ROUTE_NOT_FOUND("E0001", HttpStatus.NOT_FOUND, "GatewayRoute not found"),
 
+  CIRCUIT_NOT_FOUND("ECB0001", HttpStatus.NOT_FOUND, "Circuit not found"),
+
+  RATE_LIMIT_NOT_FOUND("ERL0001", HttpStatus.NOT_FOUND, "Rate limit not found"),
+
   CIRCUIT_OPEN("EGW503CB", HttpStatus.SERVICE_UNAVAILABLE, "Service unavailable due to high load"),
 
   BAD_REQUEST("EGW400", HttpStatus.BAD_REQUEST, "Invalid request"),
 
   VALIDATION_ERROR("EGW422", HttpStatus.UNPROCESSABLE_ENTITY, "Validation failed"),
 
-  INTERNAL_ERROR("EGW500", HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected gateway error");
+  INTERNAL_ERROR("EGW500", HttpStatus.INTERNAL_SERVER_ERROR, "Unexpected gateway error"),
+
+  DUPLICATED("E0002", HttpStatus.CONFLICT, "Duplicate request");
 
   private final String code;
   private final HttpStatus status;

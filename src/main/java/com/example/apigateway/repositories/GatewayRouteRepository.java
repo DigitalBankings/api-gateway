@@ -12,4 +12,7 @@ public interface GatewayRouteRepository extends JpaRepository<GatewayRoute, Long
   Optional<GatewayRoute> findByRouteCode(String routeCode);
 
   Page<GatewayRoute> findAll(Pageable pageable);
+
+  /** Check if routeCode exists for a different routeId (used for update validation) */
+  boolean existsByRouteCodeAndIdNot(String routeCode, Long routeId);
 }

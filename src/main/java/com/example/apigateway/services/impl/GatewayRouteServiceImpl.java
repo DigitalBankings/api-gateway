@@ -59,12 +59,16 @@ public class GatewayRouteServiceImpl implements GatewayRouteService {
 
   @Override
   public GatewayRouteResponse updateRouteById(UpdateGatewayRouteRequest request) {
+
     GatewayRoute route = gatewayRouteRepository.findById(request.getRouteId()).orElse(null);
-    if (route == null)
+    if (route == null) {
       throw new BusinessException(
           GatewayErrorCode.ROUTE_NOT_FOUND,
           "GatewayRoute not found with route id: " + request.getRouteId());
-    GatewayRoute updated = gatewayRouteRepository.save(request.toEntity());
+    }
+
+    request.updateEntity(route);
+    GatewayRoute updated = gatewayRouteRepository.save(route);
     return GatewayRouteResponse.fromEntity(updated);
   }
 }
