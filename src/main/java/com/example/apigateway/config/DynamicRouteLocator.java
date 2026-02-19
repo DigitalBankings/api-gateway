@@ -59,6 +59,7 @@ public class DynamicRouteLocator implements RouteDefinitionLocator {
         predicates.add(method);
       }
     }
+
     def.setPredicates(predicates);
 
     // ------------------ Filters ------------------
@@ -87,7 +88,7 @@ public class DynamicRouteLocator implements RouteDefinitionLocator {
         breaker.setName("CircuitBreaker");
 
         // Use routeId as the dynamic CircuitBreaker name
-        String cbName = route.getRouteId();
+        String cbName = String.valueOf(route.getRouteId());
         breaker.addArg("name", cbName);
 
         // Dynamically create Resilience4j configs

@@ -74,7 +74,6 @@ public class RoutePolicyMapServiceImpl implements RoutePolicyMapService {
     return response;
   }
 
-  // ================= GET PAGED =================
   @Override
   @Transactional(Transactional.TxType.SUPPORTS)
   public GetRouteMapResponse getAllRouteMaps(GetRouteMapRequest request) {

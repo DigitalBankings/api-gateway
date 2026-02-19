@@ -4,6 +4,7 @@ import com.example.apigateway.dto.gatewayroute.PagedResponse;
 import com.example.apigateway.dto.ratelimitpolicy.CreateRateLimitPolicy;
 import com.example.apigateway.dto.ratelimitpolicy.ListRateLimitPolicyRequest;
 import com.example.apigateway.dto.ratelimitpolicy.RateLimitPolicyResponse;
+import com.example.apigateway.dto.ratelimitpolicy.UpdateRateLimitRequest;
 import com.example.apigateway.services.RateLimitPolicyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,5 +34,10 @@ public class GatewayRateLimitPolicyController {
   public PagedResponse<RateLimitPolicyResponse> getAll(
       @RequestBody ListRateLimitPolicyRequest request) {
     return rateLimitPolicyService.getAll(request);
+  }
+
+  @PostMapping("updateById")
+  public RateLimitPolicyResponse updateById(@RequestBody UpdateRateLimitRequest request) {
+    return rateLimitPolicyService.updateById(request);
   }
 }
