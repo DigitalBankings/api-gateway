@@ -5,6 +5,7 @@ import com.example.apigateway.services.GatewayRouteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
@@ -19,7 +20,8 @@ public class GatewayRouteController {
   }
 
   @PostMapping("/getAll")
-  public PagedResponse<GatewayRouteResponse> getAll(@RequestBody GetAllRequest request) {
+  public Mono<PagedResponse<GatewayRouteResponse>> getAll(@RequestBody GetAllRequest request) {
+    log.info("getAll request: {}", request);
     return gatewayRouteService.getAll(request);
   }
 

@@ -30,10 +30,15 @@ public class GatewayRouteStore {
 
   @CachePut(cacheNames = CacheNames.GATEWAY_ROUTE, key = "'ALL'")
   public Collection<GatewayRouteConfigResponse> refreshAllRoutes() {
+    return routePolicyMapService.getAllRoutesFromDB();
+  }
+
+  /** Refresh a single route: faster than all */
+  @CachePut(cacheNames = "GATEWAY_ROUTE", key = "'ALL'")
+  public Collection<GatewayRouteConfigResponse> refreshRoute(String routeId) {
     Collection<GatewayRouteConfigResponse> routes = routePolicyMapService.getAllRoutesFromDB();
-    log.info("Refreshed routes from db: {}", routes);
-    // Publish refresh event so Gateway reloads dynamically
     publisher.publishEvent(new RefreshRoutesEvent(this));
+    log.info("Refreshed Gateway route: {}", routeId);
     return routes;
   }
 

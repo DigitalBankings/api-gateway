@@ -66,14 +66,20 @@
 
     <!-- Library Logger (Structured JSON) -->
     <logger name="com.seyha.common.logger" level="INFO" additivity="false">
-        <appender-ref ref="FILE" />
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
     </logger>
 
-    <!-- Root Logger -->
+    <logger name="com.example.apigateway" level="INFO" additivity="false">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <!-- =======================
+         Root Logger
+         ======================= -->
     <root level="INFO">
-        <appender-ref ref="CONSOLE" />
-        <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </root>
 
 </configuration>
