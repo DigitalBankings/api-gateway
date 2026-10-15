@@ -1,5 +1,8 @@
 # API Gateway 
 
+> **New to the project?** Start with the developer documentation in [`docs/`](docs/README.md):
+> setup, architecture, database schema, admin API reference, development guide and known gaps.
+
 ## Overview
 
 This project is a **dynamic API Gateway** built with **Spring Cloud Gateway** and **Reactive Spring WebFlux**.
